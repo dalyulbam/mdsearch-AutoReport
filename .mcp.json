@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "n8n-mcp": {
+      "type": "sse",
+      "url": "https://mdsearch.app.n8n.cloud/mcp/e649c429-e5fa-4130-bd1e-358d0574c1a1/sse",
+      "headers": {
+        "medisearch-n8n-header": "2026mdsearch2026"
+      }
+    }
+  }
+}

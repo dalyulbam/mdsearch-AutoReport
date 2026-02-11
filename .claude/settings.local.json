@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:docs.n8n.io)",
+      "WebSearch",
+      "WebFetch(domain:agence-scroll.com)"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "n8n-mcp"
+  ]
+}

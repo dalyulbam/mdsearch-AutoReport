@@ -3,10 +3,52 @@
     "allow": [
       "WebFetch(domain:docs.n8n.io)",
       "WebSearch",
-      "WebFetch(domain:agence-scroll.com)"
+      "WebFetch(domain:agence-scroll.com)",
+      "Bash(claude mcp add:*)",
+      "Bash(claude.cmd mcp remove:*)",
+      "mcp__n8n-mcp__Code_Tool",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:api.github.com)",
+      "WebFetch(domain:developers.figma.com)",
+      "Bash(n8n start)",
+      "Bash(gh api:*)",
+      "Bash(python:*)",
+      "Bash(curl:*)",
+      "Bash(node -e \"const https=require\\(''https''\\); const fs=require\\(''fs''\\); https.get\\(''https://raw.githubusercontent.com/dandacompany/n8n-nodes-figmation/main/examples/mcp-workflow.json'', r=>{let d=''''; r.on\\(''data'',c=>d+=c\\); r.on\\(''end'',\\(\\)=>{fs.writeFileSync\\(''F:/26y/Medisearch-AutoReport/mcp-workflow.json'',d\\); console.log\\(''Downloaded: ''+d.length+'' bytes''\\)}\\)}\\).on\\(''error'',e=>console.error\\(e\\)\\)\")",
+      "Bash(node -e:*)",
+      "Bash(netstat:*)",
+      "Bash(taskkill:*)",
+      "Bash(tasklist:*)",
+      "Bash(wmic process:*)",
+      "Bash(\"C:/Users/flyin/AppData/Local/Programs/n8n/Uninstall n8n.exe\" //S)",
+      "mcp__figma__*",
+      "mcp__figmation__*",
+      "Bash(claude mcp list:*)",
+      "Bash(where:*)",
+      "Bash(npx @anthropic-ai/claude-code mcp list:*)",
+      "Bash(CLAUDE_CODE_GIT_BASH_PATH=\"C:/Program Files/Git/bin/bash.exe\" \"C:/Users/flyin/AppData/Roaming/npm/claude.cmd\" mcp list)",
+      "Bash(CLAUDE_CODE_GIT_BASH_PATH=\"E:/Git/usr/bin/bash.exe\" \"C:/Users/flyin/AppData/Roaming/npm/claude.cmd\" mcp list)",
+      "Bash(CLAUDE_CODE_GIT_BASH_PATH=\"E:\\\\Git\\\\usr\\\\bin\\\\bash.exe\" \"C:\\\\Users\\\\flyin\\\\AppData\\\\Roaming\\\\npm\\\\claude.cmd\" mcp list)",
+      "Bash(CLAUDE_CODE_GIT_BASH_PATH=\"E:\\\\Git\\\\usr\\\\bin\\\\bash.exe\" \"C:\\\\Users\\\\flyin\\\\AppData\\\\Roaming\\\\npm\\\\claude.cmd\" mcp login figma)",
+      "Bash(CLAUDE_CODE_GIT_BASH_PATH=\"E:\\\\Git\\\\usr\\\\bin\\\\bash.exe\" \"C:\\\\Users\\\\flyin\\\\AppData\\\\Roaming\\\\npm\\\\claude.cmd\" mcp --help)",
+      "Bash(CLAUDE_CODE_GIT_BASH_PATH=\"E:\\\\Git\\\\usr\\\\bin\\\\bash.exe\" \"C:\\\\Users\\\\flyin\\\\AppData\\\\Roaming\\\\npm\\\\claude.cmd\" mcp get figma)",
+      "Bash(CLAUDE_CODE_GIT_BASH_PATH=\"E:\\\\Git\\\\usr\\\\bin\\\\bash.exe\" \"C:\\\\Users\\\\flyin\\\\AppData\\\\Roaming\\\\npm\\\\claude.cmd\" mcp get figmation)",
+      "Bash(CLAUDE_CODE_GIT_BASH_PATH=\"E:\\\\Git\\\\usr\\\\bin\\\\bash.exe\" \"C:\\\\Users\\\\flyin\\\\AppData\\\\Roaming\\\\npm\\\\claude.cmd\" mcp add --transport http -s project figmation-cli \"http://localhost:5678/mcp/6bb43ca6-32e5-47f2-a9c9-6a519ca72a82\")",
+      "Bash(CLAUDE_CODE_GIT_BASH_PATH=\"E:\\\\Git\\\\usr\\\\bin\\\\bash.exe\" \"C:\\\\Users\\\\flyin\\\\AppData\\\\Roaming\\\\npm\\\\claude.cmd\" mcp remove figmation-cli -s project)",
+      "Bash(CLAUDE_CODE_GIT_BASH_PATH=\"E:\\\\Git\\\\usr\\\\bin\\\\bash.exe\" \"C:\\\\Users\\\\flyin\\\\AppData\\\\Roaming\\\\npm\\\\claude.cmd\" --version)",
+      "Bash(npm view:*)",
+      "Bash(node:*)",
+      "Bash(powershell.exe:*)",
+      "Bash(cmd.exe /c \"netstat -ano | findstr 3055\")",
+      "Bash(powershell -Command:*)"
     ]
   },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
-    "n8n-mcp"
-  ]
+    "n8n-mcp",
+    "figma",
+    "figmation",
+    "medisearch-n8n"
+  ],
+  "disabledMcpjsonServers": []
 }

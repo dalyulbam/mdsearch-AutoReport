@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>2025 대한민국 부동산 통계</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #383838;
+  --white: #ffffff;
+  --accent-orange: #F28C38;
+  --accent-purple: #A87CC6;
+  --accent-pink: #E88BC4;
+  --accent-yellow: #E8D44D;
+  --accent-lime: #B8D44D;
+  --text-muted: rgba(255,255,255,0.55);
+  --slide-w: 1920px;
+  --slide-h: 1080px;
+}
+body {
+  background: #1a1a1a;
+  font-family: 'Inter', sans-serif;
+  color: var(--white);
+  overflow-x: hidden;
+}
+.slide {
+  width: var(--slide-w);
+  height: var(--slide-h);
+  background: var(--bg);
+  position: relative;
+  margin: 0 auto 4px;
+  overflow: hidden;
+  padding: 108px;
+}
+/* Typography */
+.font-display { font-family: 'Playfair Display', serif; font-weight: 500; }
+.font-body { font-family: 'Inter', sans-serif; font-weight: 500; }
+.hero-title { font-size: 200px; line-height: 210px; letter-spacing: -4px; }
+.header { font-size: 120px; line-height: 130px; letter-spacing: -1.2px; }
+.subheader { font-size: 60px; line-height: 72px; letter-spacing: -0.6px; }
+.body-text { font-size: 28px; line-height: 40px; letter-spacing: 0.7px; }
+.caption { font-size: 18px; line-height: 24px; letter-spacing: 0.72px; }
+.large-num { font-size: 96px; line-height: 104px; letter-spacing: -2px; }
+.stat-num { font-size: 72px; line-height: 80px; letter-spacing: -1.5px; }
+/* Accent Ellipses */
+.ellipses {
+  position: absolute;
+  display: flex;
+  gap: -48px;
+}
+.ellipse {
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  margin-left: -48px;
+}
+.ellipse:first-child { margin-left: 0; }
+.e-orange { background: var(--accent-orange); }
+.e-purple { background: var(--accent-purple); }
+.e-pink { background: var(--accent-pink); }
+.e-yellow { background: var(--accent-yellow); }
+.e-lime { background: var(--accent-lime); }
+/* Corner Accent */
+.corner-accent {
+  position: absolute;
+  top: 120px; right: 108px;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+}
+/* Footer */
+.footer {
+  position: absolute;
+  bottom: 52px; right: 108px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0.72px;
+  color: var(--white);
+  text-align: right;
+  display: flex;
+  align-items: center;
+  gap: 43px;
+}
+.footer .page-num { opacity: 0.4; }
+/* Data Grid */
+.data-grid {
+  display: grid;
+  gap: 48px;
+}
+.data-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.data-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.data-card {
+  padding: 40px;
+  border-left: 4px solid var(--accent-orange);
+}
+/* Chart styles */
+.bar-chart { display: flex; align-items: flex-end; gap: 24px; height: 320px; }
+.bar-group { display: flex; flex-direction: column; align-items: center; gap: 12px; flex: 1; }
+.bar {
+  width: 64px;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.3s;
+}
+.bar-label { font-size: 16px; opacity: 0.6; }
+.bar-value { font-size: 20px; font-weight: 500; }
+/* Number highlight */
+.highlight-orange { color: var(--accent-orange); }
+.highlight-purple { color: var(--accent-purple); }
+.highlight-pink { color: var(--accent-pink); }
+.highlight-yellow { color: var(--accent-yellow); }
+.highlight-lime { color: var(--accent-lime); }
+.text-muted { color: var(--text-muted); }
+/* Section number */
+.section-num {
+  position: absolute;
+  right: 108px; bottom: 100px;
+  font-size: 400px;
+  line-height: 1;
+  opacity: 0.05;
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+}
+/* Horizontal line */
+.divider {
+  width: 120px; height: 4px;
+  background: var(--accent-orange);
+  margin: 32px 0;
+}
+/* Donut chart */
+.donut-container { position: relative; width: 280px; height: 280px; }
+.donut-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: Title -->
+<div class="slide">
+  <div style="position:absolute; left:108px; top:123px;" class="font-display subheader">
+    메디서치 리서치
+  </div>
+  <div style="position:absolute; right:108px; top:123px; text-align:right;" class="font-display subheader">
+    2025년 2월
+  </div>
+  <div style="position:absolute; left:108px; bottom:96px;">
+    <div class="font-display subheader" style="margin-bottom:13px; opacity:0.7;">대한민국 부동산 시장</div>
+    <div class="font-display hero-title">부동산 통계</div>
+  </div>
+  <div class="ellipses" style="right:108px; bottom:156px;">
+    <div class="ellipse e-orange"></div>
+    <div class="ellipse e-purple"></div>
+    <div class="ellipse e-pink"></div>
+    <div class="ellipse e-yellow"></div>
+    <div class="ellipse e-lime"></div>
+  </div>
+</div>
+
+<!-- SLIDE 2: Section Divider - Overview -->
+<div class="slide">
+  <div class="font-display subheader" style="margin-top:40px;">01</div>
+  <div class="divider"></div>
+  <div class="font-display header" style="margin-top:32px;">시장 개요</div>
+  <div class="body-text text-muted" style="margin-top:40px; max-width:800px;">
+    2025년 대한민국 부동산 시장의 핵심 지표와 트렌드를 분석합니다.
+  </div>
+  <div class="section-num font-display">01</div>
+  <div class="corner-accent e-orange"></div>
+  <div class="footer">
+    <span>2025 부동산 통계 | 메디서치</span>
+    <span class="page-num">2</span>
+  </div>
+</div>
+
+<!-- SLIDE 3: Key Indicators -->
+<div class="slide">
+  <div class="font-display subheader">주요 핵심 지표</div>
+  <div class="divider"></div>
+  <div class="data-grid data-grid-3" style="margin-top:60px;">
+    <div class="data-card">
+      <div class="caption text-muted" style="margin-bottom:16px;">전국 주택가격 변동률</div>
+      <div class="font-display stat-num highlight-orange">+2.8%</div>
+      <div class="body-text" style="margin-top:20px;">전년 대비 상승세 지속</div>
+      <div class="caption text-muted" style="margin-top:12px;">2024년 +1.2% → 2025년 +2.8%</div>
+    </div>
+    <div class="data-card" style="border-color: var(--accent-purple);">
+      <div class="caption text-muted" style="margin-bottom:16px;">서울 아파트 평균 매매가</div>
+      <div class="font-display stat-num highlight-purple">12.4억</div>
+      <div class="body-text" style="margin-top:20px;">역대 최고가 근접</div>
+      <div class="caption text-muted" style="margin-top:12px;">강남 3구 평균 18.7억원</div>
+    </div>
+    <div class="data-card" style="border-color: var(--accent-lime);">
+      <div class="caption text-muted" style="margin-bottom:16px;">연간 거래량</div>
+      <div class="font-display stat-num highlight-lime">78.2만건</div>
+      <div class="body-text" style="margin-top:20px;">전년 대비 15.3% 증가</div>
+      <div class="caption text-muted" style="margin-top:12px;">2024년 67.8만건 대비 회복</div>
+    </div>
+  </div>
+  <div class="corner-accent e-purple"></div>
+  <div class="footer">
+    <span>2025 부동산 통계 | 메디서치</span>
+    <span class="page-num">3</span>
+  </div>
+</div>
+
+<!-- SLIDE 4: Regional Price Trends (Bar Chart) -->
+<div class="slide">
+  <div class="font-display subheader">지역별 아파트 매매가격 변동률</div>
+  <div class="divider"></div>
+  <div style="display:flex; gap:80px; margin-top:60px; align-items:flex-start;">
+    <div style="flex:1.4;">
+      <div class="bar-chart" style="padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,0.1);">
+        <div class="bar-group">
+          <div class="bar-value highlight-orange font-body">+4.2%</div>
+          <div class="bar" style="height:280px; background:var(--accent-orange);"></div>
+          <div class="bar-label font-body">서울</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-value font-body" style="color:var(--accent-purple);">+3.1%</div>
+          <div class="bar" style="height:210px; background:var(--accent-purple);"></div>
+          <div class="bar-label font-body">경기</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-value font-body" style="color:var(--accent-pink);">+2.5%</div>
+          <div class="bar" style="height:170px; background:var(--accent-pink);"></div>
+          <div class="bar-label font-body">인천</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-value font-body" style="color:var(--accent-yellow);">+1.8%</div>
+          <div class="bar" style="height:125px; background:var(--accent-yellow);"></div>
+          <div class="bar-label font-body">부산</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-value font-body" style="color:var(--accent-lime);">+1.2%</div>
+          <div class="bar" style="height:85px; background:var(--accent-lime);"></div>
+          <div class="bar-label font-body">대구</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-value font-body" style="color:rgba(255,255,255,0.4);">-0.3%</div>
+          <div class="bar" style="height:40px; background:rgba(255,255,255,0.2);"></div>
+          <div class="bar-label font-body">세종</div>
+        </div>
+      </div>
+    </div>
+    <div style="flex:0.6; padding-top:20px;">
+      <div class="body-text" style="margin-bottom:32px;">
+        <span class="highlight-orange" style="font-size:36px; font-family:'Playfair Display',serif;">서울</span>이
+        전국 상승을 주도
+      </div>
+      <div class="caption text-muted" style="line-height:32px;">
+        수도권 집중 현상 심화<br>
+        강남·서초·송파 +5.8%<br>
+        마용성(마포·용산·성동) +4.5%<br>
+        세종시는 유일한 하락 지역
+      </div>
+    </div>
+  </div>
+  <div class="corner-accent e-orange"></div>
+  <div class="footer">
+    <span>2025 부동산 통계 | 메디서치</span>
+    <span class="page-num">4</span>
+  </div>
+</div>
+
+<!-- SLIDE 5: Section Divider - Rental -->
+<div class="slide">
+  <div class="font-display subheader" style="margin-top:40px;">02</div>
+  <div class="divider" style="background:var(--accent-purple);"></div>
+  <div class="font-display header" style="margin-top:32px;">전월세 시장</div>
+  <div class="body-text text-muted" style="margin-top:40px; max-width:800px;">
+    전세에서 월세로의 구조적 전환이 가속화되고 있습니다.
+  </div>
+  <div class="section-num font-display">02</div>
+  <div class="corner-accent e-purple"></div>
+  <div class="footer">
+    <span>2025 부동산 통계 | 메디서치</span>
+    <span class="page-num">5</span>
+  </div>
+</div>
+
+<!-- SLIDE 6: Rental Market Data -->
+<div class="slide">
+  <div class="font-display subheader">전월세 전환 트렌드</div>
+  <div class="divider" style="background:var(--accent-purple);"></div>
+  <div style="display:flex; gap:80px; margin-top:60px;">
+    <div style="flex:1;">
+      <div class="data-grid" style="grid-template-columns:1fr 1fr; gap:40px;">
+        <div class="data-card" style="border-color:var(--accent-purple);">
+          <div class="caption text-muted" style="margin-bottom:12px;">서울 평균 전세가</div>
+          <div class="font-display stat-num highlight-purple">6.8억</div>
+          <div class="caption text-muted" style="margin-top:12px;">전년 대비 +8.2%</div>
+        </div>
+        <div class="data-card" style="border-color:var(--accent-pink);">
+          <div class="caption text-muted" style="margin-bottom:12px;">전세가율</div>
+          <div class="font-display stat-num highlight-pink">54.8%</div>
+          <div class="caption text-muted" style="margin-top:12px;">매매가 대비 전세 비율</div>
+        </div>
+        <div class="data-card" style="border-color:var(--accent-yellow);">
+          <div class="caption text-muted" style="margin-bottom:12px;">월세 비중</div>
+          <div class="font-display stat-num highlight-yellow">56.3%</div>
+          <div class="caption text-muted" style="margin-top:12px;">신규 임대 계약 기준</div>
+        </div>
+        <div class="data-card" style="border-color:var(--accent-orange);">
+          <div class="caption text-muted" style="margin-bottom:12px;">평균 월세</div>
+          <div class="font-display stat-num highlight-orange">127만</div>
+          <div class="caption text-muted" style="margin-top:12px;">보증금 1억 기준 서울</div>
+        </div>
+      </div>
+    </div>
+    <div style="flex:0.5; display:flex; flex-direction:column; justify-content:center;">
+      <div class="body-text" style="margin-bottom:24px;">핵심 인사이트</div>
+      <div class="caption text-muted" style="line-height:36px;">
+        전세 사기 여파로 월세 선호 지속<br><br>
+        1~2인 가구 증가로 소형 월세 수요 급증<br><br>
+        전세자금대출 금리 4.2%로 부담 가중<br><br>
+        역전세 리스크 일부 지역 잔존
+      </div>
+    </div>
+  </div>
+  <div class="corner-accent e-pink"></div>
+  <div class="footer">
+    <span>2025 부동산 통계 | 메디서치</span>
+    <span class="page-num">6</span>
+  </div>
+</div>
+
+<!-- SLIDE 7: Transaction Volume -->
+<div class="slide">
+  <div class="font-display subheader">주택 거래량 추이 (2020-2025)</div>
+  <div class="divider" style="background:var(--accent-lime);"></div>
+  <div style="margin-top:60px;">
+    <div style="display:flex; align-items:flex-end; gap:32px; height:380px; padding-bottom:48px; border-bottom:1px solid rgba(255,255,255,0.1);">
+      <div class="bar-group">
+        <div class="bar-value font-body caption" style="color:rgba(255,255,255,0.5);">110.2</div>
+        <div class="bar" style="height:320px; background:rgba(255,255,255,0.15); width:100px;"></div>
+        <div class="bar-label font-body">2020</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-value font-body caption" style="color:rgba(255,255,255,0.5);">103.8</div>
+        <div class="bar" style="height:300px; background:rgba(255,255,255,0.15); width:100px;"></div>
+        <div class="bar-label font-body">2021</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-value font-body caption" style="color:rgba(255,255,255,0.5);">51.4</div>
+        <div class="bar" style="height:150px; background:rgba(255,255,255,0.15); width:100px;"></div>
+        <div class="bar-label font-body">2022</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-value font-body caption" style="color:rgba(255,255,255,0.5);">56.1</div>
+        <div class="bar" style="height:165px; background:rgba(255,255,255,0.15); width:100px;"></div>
+        <div class="bar-label font-body">2023</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-value font-body caption" style="color:var(--accent-yellow);">67.8</div>
+        <div class="bar" style="height:200px; background:var(--accent-yellow); opacity:0.6; width:100px;"></div>
+        <div class="bar-label font-body">2024</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-value font-body body-text highlight-lime" style="font-size:24px;">78.2</div>
+        <div class="bar" style="height:230px; background:var(--accent-lime); width:100px;"></div>
+        <div class="bar-label font-body" style="font-size:20px; opacity:1;">2025</div>
+      </div>
+    </div>
+    <div style="margin-top:48px; display:flex; gap:64px;">
+      <div>
+        <div class="caption text-muted" style="margin-bottom:8px;">단위</div>
+        <div class="body-text">만 건</div>
+      </div>
+      <div>
+        <div class="caption text-muted" style="margin-bottom:8px;">전년 대비</div>
+        <div class="body-text highlight-lime">+15.3% 회복</div>
+      </div>
+      <div>
+        <div class="caption text-muted" style="margin-bottom:8px;">2020년 대비</div>
+        <div class="body-text" style="color:var(--accent-orange);">-29.0% (아직 미회복)</div>
+      </div>
+    </div>
+  </div>
+  <div class="corner-accent e-lime"></div>
+  <div class="footer">
+    <span>2025 부동산 통계 | 메디서치</span>
+    <span class="page-num">7</span>
+  </div>
+</div>
+
+<!-- SLIDE 8: Section Divider - Demographics -->
+<div class="slide">
+  <div class="font-display subheader" style="margin-top:40px;">03</div>
+  <div class="divider" style="background:var(--accent-pink);"></div>
+  <div class="font-display header" style="margin-top:32px;">인구와 주거</div>
+  <div class="body-text text-muted" style="margin-top:40px; max-width:800px;">
+    인구구조 변화가 부동산 시장의 패러다임을 바꾸고 있습니다.
+  </div>
+  <div class="section-num font-display">03</div>
+  <div class="corner-accent e-pink"></div>
+  <div class="footer">
+    <span>2025 부동산 통계 | 메디서치</span>
+    <span class="page-num">8</span>
+  </div>
+</div>
+
+<!-- SLIDE 9: Demographics & Housing -->
+<div class="slide">
+  <div class="font-display subheader">인구 이동과 주거 트렌드</div>
+  <div class="divider" style="background:var(--accent-pink);"></div>
+  <div class="data-grid data-grid-3" style="margin-top:60px;">
+    <div>
+      <div class="data-card" style="border-color:var(--accent-orange); margin-bottom:40px;">
+        <div class="caption text-muted" style="margin-bottom:16px;">1인 가구 비율</div>
+        <div class="font-display stat-num highlight-orange">34.5%</div>
+        <div class="caption text-muted" style="margin-top:12px;">전체 가구 대비</div>
+      </div>
+      <div class="data-card" style="border-color:var(--accent-purple);">
+        <div class="caption text-muted" style="margin-bottom:16px;">수도권 인구 집중</div>
+        <div class="font-display stat-num highlight-purple">50.6%</div>
+        <div class="caption text-muted" style="margin-top:12px;">전체 인구의 과반</div>
+      </div>
+    </div>
+    <div>
+      <div class="data-card" style="border-color:var(--accent-pink); margin-bottom:40px;">
+        <div class="caption text-muted" style="margin-bottom:16px;">평균 초혼 연령</div>
+        <div class="font-display stat-num highlight-pink">34.2세</div>
+        <div class="caption text-muted" style="margin-top:12px;">주택 구매 시점 지연</div>
+      </div>
+      <div class="data-card" style="border-color:var(--accent-yellow);">
+        <div class="caption text-muted" style="margin-bottom:16px;">출생아 수</div>
+        <div class="font-display stat-num highlight-yellow">21.8만</div>
+        <div class="caption text-muted" style="margin-top:12px;">역대 최저 기록 경신</div>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; justify-content:center;">
+      <div class="body-text" style="margin-bottom:24px;">구조적 변화</div>
+      <div class="caption text-muted" style="line-height:36px;">
+        1~2인 소형 주거 수요 확대<br><br>
+        수도권 쏠림 현상 심화<br><br>
+        고령화로 실버타운 수요 증가<br><br>
+        지방 소멸 위기 → 지방 부동산 하락<br><br>
+        GTX 개통으로 수도권 외곽 재편
+      </div>
+    </div>
+  </div>
+  <div class="corner-accent e-yellow"></div>
+  <div class="footer">
+    <span>2025 부동산 통계 | 메디서치</span>
+    <span class="page-num">9</span>
+  </div>
+</div>
+
+<!-- SLIDE 10: Policy & Outlook -->
+<div class="slide">
+  <div class="font-display subheader">2025 정책 방향과 시장 전망</div>
+  <div class="divider" style="background:var(--accent-yellow);"></div>
+  <div style="display:flex; gap:80px; margin-top:60px;">
+    <div style="flex:1;">
+      <div style="margin-bottom:48px;">
+        <div class="body-text highlight-orange" style="margin-bottom:16px;">공급 정책</div>
+        <div class="caption" style="line-height:32px; opacity:0.75;">
+          수도권 27만호 공급 계획 발표<br>
+          3기 신도시 본격 입주 시작 (2025~2027)<br>
+          재건축·재개발 규제 완화 지속
+        </div>
+      </div>
+      <div style="margin-bottom:48px;">
+        <div class="body-text highlight-purple" style="margin-bottom:16px;">금융 정책</div>
+        <div class="caption" style="line-height:32px; opacity:0.75;">
+          기준금리 2.75% (인하 기조 유지)<br>
+          DSR 규제 40% 유지<br>
+          생애최초 주택자금 대출 우대 확대
+        </div>
+      </div>
+      <div>
+        <div class="body-text highlight-pink" style="margin-bottom:16px;">세제 정책</div>
+        <div class="caption" style="line-height:32px; opacity:0.75;">
+          다주택자 중과세율 일부 완화 논의<br>
+          종합부동산세 개편안 국회 계류<br>
+          양도세 비과세 기준 12억 유지
+        </div>
+      </div>
+    </div>
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+      <div style="background:rgba(255,255,255,0.05); border-radius:16px; padding:48px;">
+        <div class="font-display subheader" style="font-size:48px; margin-bottom:32px;">2025 하반기 전망</div>
+        <div style="display:flex; flex-direction:column; gap:24px;">
+          <div style="display:flex; align-items:center; gap:20px;">
+            <div style="width:48px; height:48px; border-radius:50%; background:var(--accent-orange); display:flex; align-items:center; justify-content:center; font-size:24px;">↑</div>
+            <div>
+              <div class="body-text">서울 아파트</div>
+              <div class="caption text-muted">+3~5% 추가 상승 전망</div>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:20px;">
+            <div style="width:48px; height:48px; border-radius:50%; background:var(--accent-lime); display:flex; align-items:center; justify-content:center; font-size:24px;">→</div>
+            <div>
+              <div class="body-text">수도권 외곽</div>
+              <div class="caption text-muted">보합~소폭 상승</div>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:20px;">
+            <div style="width:48px; height:48px; border-radius:50%; background:rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; font-size:24px;">↓</div>
+            <div>
+              <div class="body-text">지방 광역시</div>
+              <div class="caption text-muted">약보합~소폭 하락</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="corner-accent e-yellow"></div>
+  <div class="footer">
+    <span>2025 부동산 통계 | 메디서치</span>
+    <span class="page-num">10</span>
+  </div>
+</div>
+
+<!-- SLIDE 11: Closing Quote -->
+<div class="slide" style="display:flex; flex-direction:column; justify-content:center;">
+  <div class="font-display" style="font-size:56px; line-height:76px; letter-spacing:-0.6px; max-width:1400px;">
+    부동산 시장은 정책, 금리, 인구구조의<br>
+    삼중 변곡점 위에 서 있습니다.<br>
+    <span class="highlight-orange">데이터 기반의 냉철한 분석</span>만이<br>
+    올바른 의사결정을 이끕니다.
+  </div>
+  <div class="corner-accent" style="background: linear-gradient(135deg, var(--accent-orange), var(--accent-purple));"></div>
+  <div class="footer">
+    <span>2025 부동산 통계 | 메디서치</span>
+    <span class="page-num">11</span>
+  </div>
+</div>
+
+<!-- SLIDE 12: Thank You -->
+<div class="slide" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+  <div class="font-display hero-title" style="font-size:160px; line-height:170px;">Thank You</div>
+  <div style="margin-top:48px; display:flex; gap:64px; align-items:center;">
+    <div style="display:flex; align-items:center; gap:16px;">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      <span class="body-text">research@mdsearch.kr</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span class="body-text">02-1234-5678</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <span class="body-text">mdsearch.kr</span>
+    </div>
+  </div>
+  <div class="ellipses" style="bottom:200px; left:50%; transform:translateX(-50%);">
+    <div class="ellipse e-orange"></div>
+    <div class="ellipse e-purple"></div>
+    <div class="ellipse e-pink"></div>
+    <div class="ellipse e-yellow"></div>
+    <div class="ellipse e-lime"></div>
+  </div>
+  <div class="footer">
+    <span>2025 부동산 통계 | 메디서치</span>
+    <span class="page-num">12</span>
+  </div>
+</div>
+
+</body>
+</html>

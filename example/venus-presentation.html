@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Beauty of Venus</title>
+<style>
+  /* ===== Reset & Base ===== */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #C8956C;
+    --accent: #D4727E;
+    --black: #000000;
+    --gray: #666666;
+    --light-gray: #F5F7FA;
+    --white: #FFFFFF;
+    --grid-margin: 64px;
+    --transition-speed: 0.3s;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&display=swap');
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--black);
+    color: var(--black);
+    overflow: hidden;
+  }
+
+  /* ===== Slide Container ===== */
+  .presentation {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+  }
+
+  .slide {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0; left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--white);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-speed) ease, visibility var(--transition-speed) ease;
+    padding: var(--grid-margin);
+  }
+
+  .slide.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* ===== Slide Inner ===== */
+  .slide-inner {
+    width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* ===== 1. Title Slide ===== */
+  .slide--title {
+    background: var(--white);
+    text-align: center;
+  }
+
+  .slide--title .slide-inner {
+    align-items: center;
+    gap: 32px;
+  }
+
+  .venus-symbol {
+    width: 80px;
+    height: 80px;
+    fill: none;
+    stroke: var(--primary);
+    stroke-width: 2.5;
+  }
+
+  .slide--title h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 44pt;
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .slide--title h1 span {
+    color: var(--accent);
+  }
+
+  .slide--title .subtitle {
+    font-size: 20pt;
+    color: var(--gray);
+    font-weight: 400;
+    line-height: 1.3;
+  }
+
+  .title-line {
+    width: 80px;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 2px;
+  }
+
+  /* ===== 2. Section Divider ===== */
+  .slide--section {
+    background: var(--white);
+  }
+
+  .slide--section .slide-inner {
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-top: 80px;
+  }
+
+  .section-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 240pt;
+    font-weight: 700;
+    color: var(--primary);
+    opacity: 0.05;
+    position: absolute;
+    top: -40px;
+    right: 0;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .slide--section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 40pt;
+    font-weight: 700;
+    color: var(--black);
+    margin-top: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .slide--section .section-desc {
+    font-size: 20pt;
+    color: var(--gray);
+    margin-top: 24px;
+    line-height: 1.3;
+    max-width: 600px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-accent-bar {
+    width: 48px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== 3. Content Slide (60:40) ===== */
+  .slide--content .slide-inner {
+    flex-direction: row;
+    align-items: center;
+    gap: 64px;
+  }
+
+  .content-text {
+    flex: 6;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .content-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36pt;
+    font-weight: 700;
+    color: var(--black);
+    line-height: 1.2;
+  }
+
+  .content-text p {
+    font-size: 20pt;
+    color: var(--gray);
+    line-height: 1.3;
+    max-width: 520px;
+  }
+
+  .content-text .highlight {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .content-visual {
+    flex: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .venus-illustration {
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 3/4;
+    background: var(--light-gray);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .venus-illustration svg {
+    width: 70%;
+    height: auto;
+  }
+
+  /* ===== 4. Data Slide ===== */
+  .slide--data .slide-inner {
+    flex-direction: row;
+    align-items: center;
+    gap: 64px;
+  }
+
+  .data-chart {
+    flex: 6;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 24px;
+    height: 300px;
+    padding-bottom: 40px;
+    position: relative;
+  }
+
+  .data-chart::after {
+    content: '';
+    position: absolute;
+    bottom: 36px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #E5E5E5;
+  }
+
+  .bar-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 1;
+  }
+
+  .bar {
+    width: 48px;
+    border-radius: 6px 6px 0 0;
+    transition: height 0.6s ease;
+  }
+
+  .bar--default { background: #A0A0A0; }
+  .bar--accent { background: var(--accent); }
+
+  .bar-label {
+    font-size: 11pt;
+    color: var(--gray);
+  }
+
+  .data-insights {
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .data-insights h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32pt;
+    font-weight: 700;
+    color: var(--black);
+  }
+
+  .insight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 18pt;
+    color: var(--gray);
+    line-height: 1.3;
+  }
+
+  .insight-dot {
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-top: 8px;
+  }
+
+  /* ===== 5. Content Slide 2 ===== */
+  .icon-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 16px;
+  }
+
+  .icon-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px;
+    background: var(--light-gray);
+    border-radius: 12px;
+  }
+
+  .icon-card svg {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    stroke: var(--accent);
+    fill: none;
+    stroke-width: 2;
+  }
+
+  .icon-card-text h4 {
+    font-size: 16pt;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 4px;
+  }
+
+  .icon-card-text p {
+    font-size: 14pt;
+    color: var(--gray);
+    line-height: 1.3;
+  }
+
+  /* ===== 6. Closing Slide ===== */
+  .slide--closing {
+    background: var(--white);
+    text-align: center;
+  }
+
+  .slide--closing .slide-inner {
+    align-items: center;
+    gap: 40px;
+  }
+
+  .slide--closing h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 44pt;
+    font-weight: 700;
+    color: var(--black);
+  }
+
+  .closing-line {
+    width: 60px;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 2px;
+  }
+
+  .contact-icons {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .contact-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .contact-item svg {
+    width: 32px;
+    height: 32px;
+    stroke: var(--accent);
+    fill: none;
+    stroke-width: 2;
+  }
+
+  .contact-item span {
+    font-size: 14pt;
+    color: var(--gray);
+  }
+
+  /* ===== Navigation ===== */
+  .nav {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    display: flex;
+    gap: 12px;
+    z-index: 100;
+  }
+
+  .nav button {
+    width: 48px;
+    height: 48px;
+    border: 2px solid var(--primary);
+    background: var(--white);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    color: var(--primary);
+  }
+
+  .nav button:hover {
+    background: var(--primary);
+    color: var(--white);
+  }
+
+  .nav button svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+  }
+
+  /* Slide counter */
+  .slide-counter {
+    position: fixed;
+    bottom: 40px;
+    left: 32px;
+    font-size: 12pt;
+    color: var(--gray);
+    z-index: 100;
+  }
+
+  .slide-counter .current { color: var(--primary); font-weight: 700; }
+
+  /* ===== Animations ===== */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .slide.active .fade-up {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .slide.active .fade-up:nth-child(1) { transition-delay: 0s; }
+  .slide.active .fade-up:nth-child(2) { transition-delay: 0.1s; }
+  .slide.active .fade-up:nth-child(3) { transition-delay: 0.2s; }
+  .slide.active .fade-up:nth-child(4) { transition-delay: 0.3s; }
+  .slide.active .fade-up:nth-child(5) { transition-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<div class="presentation">
+
+  <!-- ===== SLIDE 1: Title ===== -->
+  <div class="slide slide--title active" data-slide="0">
+    <div class="slide-inner">
+      <svg class="venus-symbol fade-up" viewBox="0 0 80 80">
+        <circle cx="40" cy="30" r="18"/>
+        <line x1="40" y1="48" x2="40" y2="72"/>
+        <line x1="30" y1="60" x2="50" y2="60"/>
+      </svg>
+      <h1 class="fade-up">The Beauty of <span>Venus</span></h1>
+      <div class="title-line fade-up"></div>
+      <p class="subtitle fade-up">Elegance, Mythology & Renaissance Aesthetics</p>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 2: Section Divider ===== -->
+  <div class="slide slide--section" data-slide="1">
+    <div class="slide-inner">
+      <span class="section-number">01</span>
+      <div class="section-accent-bar fade-up"></div>
+      <h2 class="fade-up">Venus in Mythology</h2>
+      <p class="section-desc fade-up">
+        Love, beauty, and the divine feminine
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 3: Content (60:40) ===== -->
+  <div class="slide slide--content" data-slide="2">
+    <div class="slide-inner">
+      <div class="content-text">
+        <h3 class="fade-up">Goddess of Love</h3>
+        <p class="fade-up">
+          Venus is the Roman goddess of <span class="highlight">love, beauty, and fertility</span>.
+          Born from the sea foam, she embodies grace and desire.
+        </p>
+        <p class="fade-up">
+          Her Greek counterpart <span class="highlight">Aphrodite</span> inspired
+          countless masterpieces of Western art.
+        </p>
+      </div>
+      <div class="content-visual fade-up">
+        <div class="venus-illustration">
+          <svg viewBox="0 0 200 280" fill="none" stroke="#C8956C" stroke-width="1.5">
+            <!-- Stylized Venus silhouette -->
+            <ellipse cx="100" cy="60" rx="28" ry="32"/>
+            <path d="M80 90 Q70 140 75 180 Q80 220 90 250 L95 270"/>
+            <path d="M120 90 Q130 140 125 180 Q120 220 110 250 L105 270"/>
+            <path d="M80 110 Q60 130 50 140"/>
+            <path d="M120 110 Q140 130 150 140"/>
+            <path d="M85 250 Q80 265 70 275"/>
+            <path d="M115 250 Q120 265 130 275"/>
+            <!-- Shell base -->
+            <path d="M30 260 Q100 240 170 260" stroke="#D4727E" stroke-width="1"/>
+            <path d="M40 268 Q100 250 160 268" stroke="#D4727E" stroke-width="1" opacity="0.5"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 4: Section Divider 2 ===== -->
+  <div class="slide slide--section" data-slide="3">
+    <div class="slide-inner">
+      <span class="section-number">02</span>
+      <div class="section-accent-bar fade-up"></div>
+      <h2 class="fade-up">Venus in Art</h2>
+      <p class="section-desc fade-up">
+        From Botticelli to modern reinterpretation
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 5: Content with Icon Cards ===== -->
+  <div class="slide slide--content" data-slide="4">
+    <div class="slide-inner" style="flex-direction: column; gap: 40px;">
+      <h3 class="fade-up" style="font-family: 'Playfair Display', serif; font-size: 36pt; font-weight: 700;">
+        Masterpieces of Venus
+      </h3>
+      <div class="icon-grid fade-up">
+        <div class="icon-card">
+          <svg viewBox="0 0 32 32"><rect x="4" y="4" width="24" height="24" rx="2"/><path d="M4 22 L12 14 L18 20 L24 12 L28 16"/></svg>
+          <div class="icon-card-text">
+            <h4>Birth of Venus</h4>
+            <p>Botticelli, 1485. Renaissance icon of divine beauty.</p>
+          </div>
+        </div>
+        <div class="icon-card">
+          <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="12"/><path d="M10 16 Q16 8 22 16 Q16 24 10 16"/></svg>
+          <div class="icon-card-text">
+            <h4>Venus de Milo</h4>
+            <p>Ancient Greek sculpture, Hellenistic beauty ideal.</p>
+          </div>
+        </div>
+        <div class="icon-card">
+          <svg viewBox="0 0 32 32"><path d="M16 4 L20 12 L28 14 L22 20 L24 28 L16 24 L8 28 L10 20 L4 14 L12 12 Z"/></svg>
+          <div class="icon-card-text">
+            <h4>Venus of Urbino</h4>
+            <p>Titian, 1538. Redefining sensuality in art.</p>
+          </div>
+        </div>
+        <div class="icon-card">
+          <svg viewBox="0 0 32 32"><path d="M8 28 Q8 16 16 8 Q24 16 24 28"/><line x1="16" y1="8" x2="16" y2="28"/></svg>
+          <div class="icon-card-text">
+            <h4>Modern Venus</h4>
+            <p>Contemporary artists reimagine Venus for today.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 6: Data Slide ===== -->
+  <div class="slide slide--data" data-slide="5">
+    <div class="slide-inner">
+      <div class="data-chart">
+        <div class="bar-group fade-up">
+          <div class="bar bar--default" style="height: 120px;"></div>
+          <span class="bar-label">15C</span>
+        </div>
+        <div class="bar-group fade-up">
+          <div class="bar bar--default" style="height: 200px;"></div>
+          <span class="bar-label">16C</span>
+        </div>
+        <div class="bar-group fade-up">
+          <div class="bar bar--accent" style="height: 260px;"></div>
+          <span class="bar-label">17C</span>
+        </div>
+        <div class="bar-group fade-up">
+          <div class="bar bar--default" style="height: 180px;"></div>
+          <span class="bar-label">18C</span>
+        </div>
+        <div class="bar-group fade-up">
+          <div class="bar bar--default" style="height: 140px;"></div>
+          <span class="bar-label">19C</span>
+        </div>
+        <div class="bar-group fade-up">
+          <div class="bar bar--default" style="height: 160px;"></div>
+          <span class="bar-label">20C</span>
+        </div>
+      </div>
+      <div class="data-insights">
+        <h3 class="fade-up">Venus in Numbers</h3>
+        <div class="insight-item fade-up">
+          <span class="insight-dot"></span>
+          <span><strong style="color: var(--accent);">17th century</strong> saw the peak of Venus depictions in European art</span>
+        </div>
+        <div class="insight-item fade-up">
+          <span class="insight-dot"></span>
+          <span>Over <strong style="color: var(--accent);">2,000+</strong> known Venus artworks across museums worldwide</span>
+        </div>
+        <div class="insight-item fade-up">
+          <span class="insight-dot"></span>
+          <span>Venus remains the <strong style="color: var(--accent);">most depicted</strong> mythological figure in Western art</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 7: Closing ===== -->
+  <div class="slide slide--closing" data-slide="6">
+    <div class="slide-inner">
+      <svg class="venus-symbol fade-up" viewBox="0 0 80 80" style="width:60px; height:60px;">
+        <circle cx="40" cy="30" r="18"/>
+        <line x1="40" y1="48" x2="40" y2="72"/>
+        <line x1="30" y1="60" x2="50" y2="60"/>
+      </svg>
+      <h2 class="fade-up">Thank You</h2>
+      <div class="closing-line fade-up"></div>
+      <div class="contact-icons fade-up">
+        <div class="contact-item">
+          <svg viewBox="0 0 32 32"><rect x="4" y="8" width="24" height="16" rx="2"/><path d="M4 8 L16 18 L28 8"/></svg>
+          <span>venus@example.com</span>
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 32 32"><path d="M20 28 C20 28 28 22 28 14 A12 12 0 0 0 4 14 C4 22 12 28 12 28"/><circle cx="16" cy="14" r="4"/></svg>
+          <span>+82 10-1234-5678</span>
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="12"/><path d="M4 16 H28 M16 4 Q10 16 16 28 M16 4 Q22 16 16 28"/></svg>
+          <span>venus-beauty.com</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Navigation -->
+<div class="slide-counter">
+  <span class="current">01</span> / <span class="total">07</span>
+</div>
+
+<div class="nav">
+  <button onclick="prevSlide()" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <button onclick="nextSlide()" aria-label="Next slide">
+    <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+  </button>
+</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  const counterCurrent = document.querySelector('.slide-counter .current');
+  const counterTotal = document.querySelector('.slide-counter .total');
+  counterTotal.textContent = String(total).padStart(2, '0');
+
+  function goToSlide(n) {
+    slides[current].classList.remove('active');
+    current = (n + total) % total;
+    slides[current].classList.add('active');
+    counterCurrent.textContent = String(current + 1).padStart(2, '0');
+  }
+
+  function nextSlide() { goToSlide(current + 1); }
+  function prevSlide() { goToSlide(current - 1); }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+  });
+</script>
+
+</body>
+</html>
